@@ -1,0 +1,10 @@
+{
+  "name": "aws-books-explorer-backend",
+  "version": "0.1.0",
+  "description": "Lambda function for aws-books-explorer (Google Books proxy)",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.140.0"
+  }
+}

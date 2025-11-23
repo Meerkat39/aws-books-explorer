@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: aws-books-explorer - SAM template for Lambda + API Gateway
+Globals:
+  Function:
+    Timeout: 10
+Resources:
+  BooksFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: books-function
+      CodeUri: BooksFunction
+      Handler: index.handler
+      Runtime: nodejs18.x
+      MemorySize: 128
+      Policies:
+      - AWSLambdaBasicExecutionRole
+      - Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
+          - secretsmanager:GetSecretValue
+          Resource:
+            Fn::Sub: arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:aws-books-explorer/*
+      Environment:
+        Variables:
+          GOOGLE_BOOKS_API_KEY: ''
+          GOOGLE_BOOKS_SECRET_NAME: aws-books-explorer/GoogleBooks
+      Events:
+        GetBooksApi:
+          Type: Api
+          Properties:
+            Path: /books
+            Method: get
+    Metadata:
+      SamResourceId: BooksFunction
+Outputs:
+  ApiUrl:
+    Description: Invoke URL for API
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/books

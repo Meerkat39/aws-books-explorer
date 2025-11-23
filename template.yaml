@@ -11,15 +11,23 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: books-function
-      Handler: backend/lambda/index.handler
+      CodeUri: backend/lambda
+      Handler: index.handler
       Runtime: nodejs18.x
       MemorySize: 128
       Policies:
         - AWSLambdaBasicExecutionRole
+        - Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action:
+                - secretsmanager:GetSecretValue
+              Resource: !Sub arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:aws-books-explorer/*
       Environment:
         Variables:
-          # Recommended: inject GOOGLE_BOOKS_API_KEY at deploy time (via Parameter/Secrets)
+          # Recommended: move GOOGLE_BOOKS_API_KEY to Secrets Manager and set the secret name here
           GOOGLE_BOOKS_API_KEY: ""
+          GOOGLE_BOOKS_SECRET_NAME: "aws-books-explorer/GoogleBooks"
       Events:
         GetBooksApi:
           Type: Api
