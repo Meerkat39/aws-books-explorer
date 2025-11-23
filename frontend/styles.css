@@ -1,0 +1,32 @@
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto,
+    "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  margin: 24px;
+}
+main {
+  max-width: 720px;
+  margin: 0 auto;
+}
+form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+input[type="search"] {
+  flex: 1;
+  padding: 8px;
+}
+button {
+  padding: 8px 12px;
+}
+.item {
+  border-bottom: 1px solid #eee;
+  padding: 8px 0;
+}
+.meta {
+  color: #666;
+  font-size: 0.9em;
+}
+.error {
+  color: #b00;
+}
