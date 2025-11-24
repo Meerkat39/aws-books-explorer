@@ -1,4 +1,4 @@
-const apiBase = ""; // 空にすると相対パス。デプロイ後は API のベース URL を入れてください
+const apiBase = "https://7jhpn9k8cd.execute-api.ap-northeast-1.amazonaws.com"; // デプロイ済 API エンドポイント
 const form = document.getElementById("searchForm");
 const qInput = document.getElementById("q");
 const results = document.getElementById("results");
